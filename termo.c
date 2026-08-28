@@ -148,3 +148,19 @@ const char PALAVRAS[][TAMANHO + 1] = {
     "FAROL", "FOLIA", "POLIS", "PRECO", "VIGER", "BULIR", "TROCO", "UMIDO",
     "AUDIO", "FROTA", "OUTRA", "CHAVE", "MOCHO", "PEITA", "DISSO", "NESTE",
     "MATAR", "MONTA", "COSMO", "ILESO"};
+
+void escolherPalavra();
+int verificarPalpite();
+int verficarApenasLetras();
+void tranformarMaiusculo();
+void avaliarPalpite();
+void exibirResultado();
+void exibirTeclado();
+void atualizarTeclado();
+int vencerJogo();
+
+
+int main(void)
+{
+    
+}
