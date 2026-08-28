@@ -3,38 +3,42 @@
 #include <string.h>
 #include <ctype.h>
 #include <time.h>
-#include <conio.h>
+#include <windows.h>
 
 #define TAMANHO 5
 #define NUM_TENTATIVAS 6
 #define LIMPAR_TECLADO (TAMANHO + 32)
 
-#define COR_RESET()            \
-    do                         \
-    {                          \
-        textbackground(BLACK); \
-        textcolor(WHITE);      \
-    } while (0)
-#define COR_VERDE()            \
-    do                         \
-    {                          \
-        textbackground(GREEN); \
-        textcolor(BLACK);      \
-    } while (0)
-#define COR_AMARELO()           \
-    do                          \
-    {                           \
-        textbackground(YELLOW); \
-        textcolor(BLACK);       \
-    } while (0)
-#define COR_CINZA()                \
-    do                             \
-    {                              \
-        textbackground(LIGHTGRAY); \
-        textcolor(BLACK);          \
-    } while (0)
+void definirCor(WORD corFundo, WORD corTexto)
+{
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, (corFundo << 4) | corTexto);
+}
 
-#define LIMPAR_TELA() clrscr()
+void LIMPAR_TELA(void)
+{
+    system("cls");
+}
+
+void COR_RESET(void)
+{
+    definirCor(0, 15);
+}
+
+void COR_VERDE(void)
+{
+    definirCor(2, 0);
+}
+
+void COR_AMARELO(void)
+{
+    definirCor(14, 0);
+}
+
+void COR_CINZA(void)
+{
+    definirCor(7, 0);
+}
 
 const char PALAVRAS[][TAMANHO + 1] = {
     "SAGAZ", "AMAGO", "TERMO", "NITRO", "EXITO", "MEXER", "NOBRE", "ETICA",
@@ -149,18 +153,55 @@ const char PALAVRAS[][TAMANHO + 1] = {
     "AUDIO", "FROTA", "OUTRA", "CHAVE", "MOCHO", "PEITA", "DISSO", "NESTE",
     "MATAR", "MONTA", "COSMO", "ILESO"};
 
-void escolherPalavra();
-int verificarPalpite();
-int verficarApenasLetras();
-void tranformarMaiusculo();
-void avaliarPalpite();
-void exibirResultado();
-void exibirTeclado();
-void atualizarTeclado();
-int vencerJogo();
-
+// void escolherPalavra();
+// int verificarPalpite();
+// int verficarApenasLetras();
+// void tranformarMaiusculo();
+// void avaliarPalpite();
+// void exibirResultado();
+// void exibirTeclado();
+// void atualizarTeclado();
+// int vencerJogo();
 
 int main(void)
 {
-    
+    char palavraSecreta[TAMANHO + 1];
+    char palpite[LIMPAR_TECLADO];
+    char resultado[TAMANHO + 1];
+    char letrasUsadas[26];
+    char statusLetras[26];
+
+    for (int i = 0; i < 26; i++)
+    {
+        letrasUsadas[i] = 'A' + i;
+        statusLetras[i] = '?';
+    }
+
+    srand((unsigned int)time(NULL));
+    // escolherPalavra(palavraSecreta);
+
+    LIMPAR_TELA();
+    printf("=================================================\n");
+    printf("                 JOGO TERMO\n");
+    printf("=================================================\n");
+    printf("Adivinhe a palavra secreta de %d letras.\n", TAMANHO);
+    printf("Voce tem %d tentativas.\n\n", NUM_TENTATIVAS);
+
+    COR_VERDE();
+    printf(" A ");
+    COR_RESET();
+    printf(" = letra certa, posicao certa\n");
+    COR_AMARELO();
+    printf(" A ");
+    COR_RESET();
+    printf(" = letra existe, posicao errada\n");
+    COR_CINZA();
+    printf(" A ");
+    COR_RESET();
+    printf(" = letra nao esta na palavra\n\n");
+
+//Temporario pra teste pq por algum motivo no meu Windows ele só abre e fecha mas no VsCode ele funciona normal, então vou deixar esse getchar() aqui pra não fechar o programa
+    printf("\nPressione Enter para sair...");
+    getchar();
+    return 0;
 }
