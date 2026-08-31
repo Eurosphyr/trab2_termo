@@ -298,3 +298,39 @@ int palavraContemApenasLetras(const char palpite[])
     }
     return 1;
 }
+
+void avaliarPalpite(const char palpite[], const char palavraSecreta[], char resultado[], int tamanho)
+{
+    int letraUsada[TAMANHO] = {0};
+
+    for (int i = 0; i < tamanho; i++)
+    {
+        if (palpite[i] == palavraSecreta[i])
+        {
+            resultado[i] = 'V';
+            letraUsada[i] = 1;
+        }
+        else
+        {
+            resultado[i] = 'C';
+        }
+    }
+
+    for (int i = 0; i < tamanho; i++)
+    {
+        if (resultado[i] == 'V')
+            continue;
+        {
+            for (int j = 0; j < tamanho; j++)
+            {
+                if (!letraUsada[j] && palpite[i] == palavraSecreta[j])
+                {
+                    resultado[i] = 'A';
+                    letraUsada[j] = 1;
+                    break;
+                }
+            }
+        }
+        resultado[tamanho] = '\0';
+    }
+}
