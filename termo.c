@@ -180,7 +180,7 @@ int main(void)
     }
 
     srand((unsigned int)time(NULL));
-    // escolherPalavra(palavraSecreta);
+    escolherPalavra(palavraSecreta, sizeof(PALAVRAS) / sizeof(PALAVRAS[0]));
 
     LIMPAR_TELA();
     printf("=================================================\n");
@@ -275,6 +275,26 @@ int verificarPalpite(char palpite[], size_t tamBuffer)
     {
         palpite[len - 1] = '\0';
         len--;
+    }
+    return 1;
+}
+
+void tranformarMaiusculo(char texto[])
+{
+    for (int i = 0; texto[i]; i++)
+    {
+        texto[i] = toupper((unsigned char)texto[i]);
+    }
+}
+
+int palavraContemApenasLetras(const char palpite[])
+{
+    for (int i = 0; palpite[i]; i++)
+    {
+        if (!isalpha((unsigned char)palpite[i]))
+        {
+            return 0;
+        }
     }
     return 1;
 }
