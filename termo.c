@@ -334,3 +334,67 @@ void avaliarPalpite(const char palpite[], const char palavraSecreta[], char resu
         resultado[tamanho] = '\0';
     }
 }
+void atualizarTeclado(char letrasUsadas[26], char statusLetras[26],
+                      const char palpite[], const char resultado[], int tam)
+{
+    for (int i = 0; i < tam; i++)
+    {
+        int idx = palpite[i] - 'A';
+        if (idx < 0 || idx >= 26)
+            continue;
+
+        if (statusLetras[idx] == 'V')
+            continue; /* ja era verde, mantem */
+
+        if (resultado[i] == 'V')
+        {
+            statusLetras[idx] = 'V';
+        }
+        else if (resultado[i] == 'A' && statusLetras[idx] != 'V')
+        {
+            statusLetras[idx] = 'A';
+        }
+        else if (statusLetras[idx] == '?')
+        {
+            statusLetras[idx] = 'C';
+        }
+    }
+}
+
+void exibirTeclado(const char letrasUsadas[26], const char statusLetras[26])
+{
+    printf("Letras usadas: ");
+    for (int i = 0; i < 26; i++)
+    {
+        const char *cor;
+        switch (statusLetras[i])
+        {
+        case 'V':
+            cor = COR_VERDE;
+            break;
+        case 'A':
+            cor = COR_AMARELO;
+            break;
+        case 'C':
+            cor = COR_CINZA;
+            break;
+        default:
+            cor = COR_RESET;
+            break;
+        }
+        printf("%s%c%s", cor, letrasUsadas[i], COR_RESET);
+    }
+    printf("\n");
+}
+
+int venceuJogo(const char resultado[], int tam)
+{
+    for (int i = 0; i < tam; i++)
+    {
+        if (resultado[i] != 'V')
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
