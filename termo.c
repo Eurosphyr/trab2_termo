@@ -153,15 +153,15 @@ const char PALAVRAS[][TAMANHO + 1] = {
     "AUDIO", "FROTA", "OUTRA", "CHAVE", "MOCHO", "PEITA", "DISSO", "NESTE",
     "MATAR", "MONTA", "COSMO", "ILESO"};
 
-void escolherPalavra();
-int verificarPalpite();
-int verficarApenasLetras();
-void tranformarMaiusculo();
-void avaliarPalpite();
-void exibirResultado();
-void exibirTeclado();
-void atualizarTeclado();
-int vencerJogo();
+void escolherPalavra(char destino[], int total);
+int verificarPalpite(char palpite[], size_t tamBuffer);
+void tranformarMaiusculo(char texto[]);
+int palavraContemApenasLetras(const char palpite[]);
+void avaliarPalpite(const char palpite[], const char palavraSecreta[], char resultado[], int tamanho);
+void atualizarTeclado(char letrasUsadas[26], char statusLetras[26],
+                      const char palpite[], const char resultado[], int tam);
+void exibirTeclado(const char letrasUsadas[26], const char statusLetras[26]);
+int venceuJogo(const char resultado[], int tam);
 
 int main(void)
 {
