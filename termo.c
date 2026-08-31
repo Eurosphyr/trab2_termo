@@ -256,3 +256,25 @@ int main(void)
     getchar();
     return 0;
 }
+
+void escolherPalavra(char destino[], int total)
+{
+    int indice = rand() % total;
+    strcpy(destino, PALAVRAS[indice]);
+}
+
+int verificarPalpite(char palpite[], size_t tamBuffer)
+{
+    if (fgets(palpite, (int)tamBuffer, stdin) == NULL)
+    {
+        palpite[0] = '\0';
+        return 0;
+    }
+    size_t len = strlen(palpite);
+    while (len > 0 && (palpite[len - 1] == '\n' || palpite[len - 1] == '\r'))
+    {
+        palpite[len - 1] = '\0';
+        len--;
+    }
+    return 1;
+}
