@@ -231,7 +231,25 @@ int main(void)
                 palpiteValido = 1;
             }
         } while (!palpiteValido);
+
+        avaliarPalpite(palpite, palavraSecreta, resultado, TAMANHO);
+        atualizarTeclado(letrasUsadas, statusLetras, palpite, resultado, TAMANHO);
+
+        printf("\n");
+        exibirLinhaResultado(palpite, resultado, TAMANHO);
+        printf("\n");
+        exibirTeclado(letrasUsadas, statusLetras);
+        printf("\n");
+
+        venceu = venceuJogo(resultado, TAMANHO);
+        num_tentativas++;
     }
+
+    printf("\n=================================================\n");
+    venceu
+        ? printf("PARABENS! Voce acertou em %d tentativa(s)!\n", num_tentativas)
+        : printf("Que pena! A palavra secreta era: %s\n", palavraSecreta);
+    printf("=================================================\n");
 
     // Temporario pra teste pq por algum motivo no meu Windows ele só abre e fecha mas no VsCode ele funciona normal, então vou deixar esse getchar() aqui pra não fechar o programa
     printf("\nPressione Enter para sair...");
