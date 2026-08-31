@@ -185,7 +185,7 @@ int main(void)
 
     LIMPAR_TELA();
     printf("=================================================\n");
-    printf("                 JOGO TERMO\n");
+    printf("                  TERMO\n");
     printf("=================================================\n");
     printf("Adivinhe a palavra secreta de %d letras.\n", TAMANHO);
     printf("Voce tem %d tentativas.\n\n", NUM_TENTATIVAS);
@@ -252,7 +252,7 @@ int main(void)
         : printf("Que pena! A palavra secreta era: %s\n", palavraSecreta);
     printf("=================================================\n");
 
-    // Temporario pra teste pq por algum motivo no meu Windows ele só abre e fecha mas no VsCode ele funciona normal, então vou deixar esse getchar() aqui pra não fechar o programa
+    // Por algum motivo no meu Windows ele só abre e fecha mas no VsCode ele funciona normal, então vou deixar esse getchar() aqui pra não fechar o programa
     printf("\nPressione Enter para sair...");
     getchar();
     return 0;
@@ -345,7 +345,7 @@ void atualizarTeclado(char letrasUsadas[26], char statusLetras[26],
             continue;
 
         if (statusLetras[idx] == 'V')
-            continue; /* ja era verde, mantem */
+            continue;
 
         if (resultado[i] == 'V')
         {
