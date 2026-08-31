@@ -153,15 +153,15 @@ const char PALAVRAS[][TAMANHO + 1] = {
     "AUDIO", "FROTA", "OUTRA", "CHAVE", "MOCHO", "PEITA", "DISSO", "NESTE",
     "MATAR", "MONTA", "COSMO", "ILESO"};
 
-// void escolherPalavra();
-// int verificarPalpite();
-// int verficarApenasLetras();
-// void tranformarMaiusculo();
-// void avaliarPalpite();
-// void exibirResultado();
-// void exibirTeclado();
-// void atualizarTeclado();
-// int vencerJogo();
+void escolherPalavra();
+int verificarPalpite();
+int verficarApenasLetras();
+void tranformarMaiusculo();
+void avaliarPalpite();
+void exibirResultado();
+void exibirTeclado();
+void atualizarTeclado();
+int vencerJogo();
 
 int main(void)
 {
@@ -170,6 +170,8 @@ int main(void)
     char resultado[TAMANHO + 1];
     char letrasUsadas[26];
     char statusLetras[26];
+    int num_tentativas = 0;
+    int venceu = 0;
 
     for (int i = 0; i < 26; i++)
     {
@@ -200,7 +202,38 @@ int main(void)
     COR_RESET();
     printf(" = letra nao esta na palavra\n\n");
 
-//Temporario pra teste pq por algum motivo no meu Windows ele só abre e fecha mas no VsCode ele funciona normal, então vou deixar esse getchar() aqui pra não fechar o programa
+    while (num_tentativas < NUM_TENTATIVAS && !venceu)
+    {
+        int palpiteValido = 0;
+
+        do
+        {
+            printf("Tentativa %d de %d: ", num_tentativas + 1, NUM_TENTATIVAS);
+
+            if (!verificarPalpite(palpite, sizeof(palpite)))
+            {
+                printf("Palpite invalido. Certifique-se de que o palpite tem %d letras e consiste apenas de letras.\n", TAMANHO);
+                continue;
+            }
+
+            tranformarMaiusculo(palpite);
+
+            if ((int)strlen(palpite) != TAMANHO)
+            {
+                printf("  -> A palavra precisa ter exatamente %d letras.\n", TAMANHO);
+            }
+            else if (!palavraContemApenasLetras(palpite))
+            {
+                printf("  -> Digite apenas letras (sem numeros ou simbolos).\n");
+            }
+            else
+            {
+                palpiteValido = 1;
+            }
+        } while (!palpiteValido);
+    }
+
+    // Temporario pra teste pq por algum motivo no meu Windows ele só abre e fecha mas no VsCode ele funciona normal, então vou deixar esse getchar() aqui pra não fechar o programa
     printf("\nPressione Enter para sair...");
     getchar();
     return 0;
