@@ -161,6 +161,7 @@ void avaliarPalpite(const char palpite[], const char palavraSecreta[], char resu
 void atualizarTeclado(char letrasUsadas[26], char statusLetras[26],
                       const char palpite[], const char resultado[], int tam);
 void exibirTeclado(const char letrasUsadas[26], const char statusLetras[26]);
+void exibirLinhaResultado(const char palpite[], const char resultado[], int tam);
 int venceuJogo(const char resultado[], int tam);
 
 int main(void)
@@ -320,19 +321,19 @@ void avaliarPalpite(const char palpite[], const char palavraSecreta[], char resu
     {
         if (resultado[i] == 'V')
             continue;
+
+        for (int j = 0; j < tamanho; j++)
         {
-            for (int j = 0; j < tamanho; j++)
+            if (!letraUsada[j] && palpite[i] == palavraSecreta[j])
             {
-                if (!letraUsada[j] && palpite[i] == palavraSecreta[j])
-                {
-                    resultado[i] = 'A';
-                    letraUsada[j] = 1;
-                    break;
-                }
+                resultado[i] = 'A';
+                letraUsada[j] = 1;
+                break;
             }
         }
-        resultado[tamanho] = '\0';
     }
+
+    resultado[tamanho] = '\0';
 }
 void atualizarTeclado(char letrasUsadas[26], char statusLetras[26],
                       const char palpite[], const char resultado[], int tam)
@@ -366,23 +367,45 @@ void exibirTeclado(const char letrasUsadas[26], const char statusLetras[26])
     printf("Letras usadas: ");
     for (int i = 0; i < 26; i++)
     {
-        const char *cor;
         switch (statusLetras[i])
         {
         case 'V':
-            cor = COR_VERDE;
+            COR_VERDE();
             break;
         case 'A':
-            cor = COR_AMARELO;
+            COR_AMARELO();
             break;
         case 'C':
-            cor = COR_CINZA;
+            COR_CINZA();
             break;
         default:
-            cor = COR_RESET;
+            COR_RESET();
             break;
         }
-        printf("%s%c%s", cor, letrasUsadas[i], COR_RESET);
+        printf("%c", letrasUsadas[i]);
+        COR_RESET();
+    }
+    printf("\n");
+}
+
+void exibirLinhaResultado(const char palpite[], const char resultado[], int tam)
+{
+    for (int i = 0; i < tam; i++)
+    {
+        switch (resultado[i])
+        {
+        case 'V':
+            COR_VERDE();
+            break;
+        case 'A':
+            COR_AMARELO();
+            break;
+        default:
+            COR_CINZA();
+            break;
+        }
+        printf(" %c ", palpite[i]);
+        COR_RESET();
     }
     printf("\n");
 }
