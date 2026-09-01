@@ -1,3 +1,16 @@
+/*
+    Trabalho feito por:
+    Miguel Angelo de Lima Godoi
+    Pedro Augusto de Oliveira Galdino Ribeiro
+
+    Jogo Termo de adivinhação de palavraas de 5 letras, com 6 tentativas para acertar a palavra secreta.
+    O jogo informa se a letra está na palavra e se está na posição correta.
+    As letras corretas na posição correta são exibidas em verde, as letras corretas mas em posição diferente são exibidas em amarelo e as letras que não estão na palavra são exibidas em cinza.
+*/
+
+
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
